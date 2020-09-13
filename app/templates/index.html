@@ -1,0 +1,59 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Data Intelligence Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="w3-light-grey w3-container" style="font-family:Arial, Helvetica, sans-serif;">
+	<div class="row">
+		<div class="column" style="width:20%;float:left;">
+			<h1>Word Cloud</h1>
+		</div>
+		<div class="column" style="width:80%;float:right;text-align:right;padding-top:30px;">
+			<a href="/index/" class="w3-button w3-black w3-hover-white">Cloud View <i class="fa fa-binoculars"></i></a>
+			<a href="#analytics" class="w3-button w3-red w3-hover-white">More Analysis</a>
+		</div>
+	</div>
+
+	<div class="w3-red w3-hover-black w3-animate-right w3-card" style="margin-top:30px;width:33%;float:right;">
+		<div class="w3-white" id="generate" style="margin:10px;text-align:center;padding:5px 30px 20px 10px;">
+			<h2>Generate Word Cloud</h2>
+			<form method="POST" action="/generatecloud/">
+				<textarea type="text" class="w3-input w3-light-grey" style="margin-bottom:10px;height:240px;" name="text" placeholder="Enter text here...."></textarea>
+				<input type="submit" class="w3-button w3-black w3-hover-red" value="Generate" style="margin-bottom:15px;">
+			</form>
+			<span style="font-size:20px;">Find more analytics below.</span>
+		</div>
+		
+	</div>
+
+	<div class="w3-white w3-card w3-animate-left" style="height:450px;margin-top:15px;width:65%;float:left;" id="cloud">
+		<img src="{{ cloud|safe }}" style="width:100%;height:100%;">
+	</div>
+
+	<div class="w3-red w3-hover-black w3-animate-right w3-card" style="width:100%;margin-top:575px;padding-top:1px;padding-bottom:1px;" id="analytics">
+		<div class="w3-white" id="generate" style="margin:10px;padding:10px;">
+			<h3>Total Word Count is {{ count|safe }}</h3>
+			<table class="w3-table-all">
+				<tr class="w3-black">
+					<th>Word</th>
+					<th>Frequency</th>
+				</tr>
+				{% for x in analytics %}
+				<tr>
+					<td>{{ x.letter|safe }}</td>
+					<td>{{ x.count|safe }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
